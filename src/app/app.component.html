@@ -1,0 +1,80 @@
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 mt-4">
+      <h1 class="text-center">User List</h1>
+     
+      <div class="form-group col-md-4">
+        <input type="search" class="form-control"  placeholder="Search" (keyup)="onSearchUser($event)">
+      </div>
+      
+
+      <table class="table table-bordered table-striped table-hover">
+        <thead>
+          <tr>
+            <th class="text-center">ID </th>
+            <th class="text-center">First Name</th>
+            <th class="text-center">Last Name</th>
+            <th class="text-center">Address</th>
+            <th class="text-center">Pincode</th>
+            <th class="text-center" (click)="SortByBirthDate()">Date of Birth<button type="button">^</button></th>
+            <th class="text-center" (click)="sortAsc()">Joining Date<button type="button">^</button></th>
+           <th class="text-center">&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{ user.userId }}</td>
+            <td>{{ user.userName }}</td>
+            <td>{{ user.surname}}</td>
+            <td>{{ user.address }}</td>
+            <td>{{ user.pincode }}</td>
+            <td>{{ user.dateOfBirth }}</td>
+            <td>{{ user.joiningDate }}</td>
+
+            <td>
+              <button type="button" class="btn btn-info btn-sm mr-2" (click)="showEditUserForm(user)">Edit</button>
+
+              <button type="button" class="btn btn-danger btn-sm" (click)="removeUser(user)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      
+
+      <button type="button" class="btn btn-success" (click)="showAddUserForm()">Add New User</button>
+
+      <div class="mt-4">
+        <form *ngIf="userForm">
+          <h2>Add New User</h2>
+          <p>First Name: <input type="text" name="firstName" [(ngModel)]="newUser.userName"placeholder="FirstName" /></p>
+          <p>Last Name: <input type="text" name="lastName" [(ngModel)]="newUser.surname"placeholder="LastName" /></p>
+          <p>Address: <input type="text" name="address" [(ngModel)]="newUser.address" placeholder="Address"/></p>
+          <p>Pincode: <input type="text" name="pincode" [(ngModel)]="newUser.pincode" placeholder="Pincode"/></p>
+          <p>DateOfBirth: <input type="date" name="dateOfBirth" [(ngModel)]="newUser.dateOfBirth" placeholder="BirthDate"/></p>
+          <p>JoiningDate: <input type="date" name="joiningDate" [(ngModel)]="newUser.joiningDate" placeholder="joiningDate"/></p>
+
+          <p>
+            <button type="button" class="btn btn-primary mr-2" (click)="saveUser(newUser)">Submit</button>
+            <button type="button" class="btn btn-warning" (click)="cancelNewUser()">Cancel</button>
+          </p>
+        </form>
+
+        <form *ngIf="editUserForm">
+          <h2>Edit User Details</h2>
+          <p>First Name: <input type="text" name="firstName" [(ngModel)]="editedUser.userName" /></p>
+          <p>Last Name: <input type="text" name="lastName" [(ngModel)]="editedUser.surname" /></p>
+          <p>Address: <input type="text" name="address" [(ngModel)]="editedUser.address" /></p>
+          <p>Pincode: <input type="text" name="pincode" [(ngModel)]="editedUser.pincode" /></p>
+          <p>DateOfBirth: <input type="date" name="dateOfBirth" [(ngModel)]="editedUser.dateOfBirth" /></p>
+          <p>JoiningDate: <input type="date" name="joiningDate" [(ngModel)]="editedUser.joiningDate" /></p>
+
+          <p>
+            <button type="button" class="btn btn-primary mr-2" (click)="updateUser(editedUser)">Submit</button>
+            <button type="button" class="btn btn-warning" (click)="cancelEdits()">Cancel</button>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
